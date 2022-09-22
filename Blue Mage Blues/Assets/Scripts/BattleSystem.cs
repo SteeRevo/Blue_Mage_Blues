@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum BattleState{START, PLAYERTURN, ENEMYTURN, WON, LOST}
@@ -127,6 +128,8 @@ public class BattleSystem : MonoBehaviour
     void EndBattle(){
         if(state == BattleState.WON){
             dialogueText.text = "battle won";
+            SceneManager.LoadScene("OverworldScene");
+            GameControl.playerUnitData.health = playerUnit.currentHP;
         }
         else if(state == BattleState.LOST){
             dialogueText.text = "YA LOST DIPSHIT";
@@ -160,6 +163,11 @@ public class BattleSystem : MonoBehaviour
             if(heal.triggered && state == BattleState.PLAYERTURN){
                 done = true;
                 StartCoroutine(PlayerHeal());
+            }
+
+            if(state == BattleState.WON && attack.triggered){
+
+                SceneManager.LoadScene("OverworldScene");
             }
            
             yield return null;

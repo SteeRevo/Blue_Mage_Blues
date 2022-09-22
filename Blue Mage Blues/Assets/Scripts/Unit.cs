@@ -12,6 +12,10 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
 
+    public void setStats(){
+        currentHP = GameControl.playerUnitData.health;
+    }
+
     public bool TakeDamage(int dmg){
         currentHP -= dmg;
 
